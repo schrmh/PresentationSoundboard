@@ -22,6 +22,22 @@ Rectangle {
         onEntered: {
             rect.color = "gray"
             text.color = "blue"
+            moveRight.start()
+        }
+    }
+
+    Rectangle {
+        id:progress
+        height:parent.height
+        color:"silver"
+
+        PropertyAnimation {
+            id:moveRight
+            target:progress
+            property:"width"
+            from:progress.width
+            to:rect.width
+            duration:1000 //TODO: length of audio file
         }
     }
 
