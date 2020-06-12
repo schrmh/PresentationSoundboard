@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtMultimedia 5.0
 
 Rectangle {
     id:rect
@@ -7,6 +8,10 @@ Rectangle {
     width:100
     height:50
     color:c
+
+    MediaPlayer {
+        id: player
+    }
 
     Text {
         id:text
@@ -22,23 +27,25 @@ Rectangle {
         onEntered: {
             rect.color = "gray"
             text.color = "blue"
-            moveRight.start()
+
+            switch(player.playbackState)
+            {
+                case 1: player.pause();
+                    break;
+                case 2: player.play();
+                    break;
+                default: player.source = "http://www.kpd-ml.org/doc/musik/elbe1/TRACK_5.mp3"
+                         player.play();
+                    break;
+            }
         }
     }
 
     Rectangle {
         id:progress
         height:parent.height
+        width:parent.width*player.position/(player.duration+1)
         color:"silver"
-
-        PropertyAnimation {
-            id:moveRight
-            target:progress
-            property:"width"
-            from:progress.width
-            to:rect.width
-            duration:1000 //TODO: length of audio file
-        }
     }
 
 }

@@ -9,7 +9,6 @@ Window {
     height: 480
     title: qsTr("Presentationssoundboard")
 
-
     Rectangle {
         id:addTrackSnippetButton
         width:50
@@ -53,7 +52,6 @@ Window {
                     object.y = container.childrenRect.height
                     //object.t = ""
                     //object.c ="black"
-
                 }
                 else
                 {
