@@ -5,6 +5,7 @@ Rectangle {
     id:rect
     property string t: "Press to play"
     property string c: "black"
+    property string recording: "http://www.kpd-ml.org/doc/musik/elbe1/TRACK_5.mp3"
     width:100
     height:50
     color:c
@@ -34,18 +35,18 @@ Rectangle {
                     break;
                 case 2: player.play();
                     break;
-                default: player.source = "http://www.kpd-ml.org/doc/musik/elbe1/TRACK_5.mp3"
+                default: player.source = rect.recording
                          player.play();
                     break;
             }
         }
     }
 
-    Rectangle {
+    Rectangle { //can happen that it won't move/play if clicks were too fast..
         id:progress
         height:parent.height
-        width:parent.width*player.position/(player.duration+1)
-        color:"silver"
+        width:player.duration>0?parent.width*player.position/player.duration:0
+        color:player.duration!=player.position?"silver":"green"
     }
 
 }

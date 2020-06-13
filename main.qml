@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.15
+import QtQuick.Dialogs 1.2
 
 Window {
     id:root
@@ -40,18 +41,10 @@ Window {
         MouseArea {
             id:mA
             anchors.fill:parent
-            onEntered: {
-
-                var component = Qt.createComponent("TrackSnippet.qml");
-
-                var object = component.createObject(container);
-
+            onClicked: {
                 if(container.height >= container.childrenRect.height+Qt.createComponent("TrackSnippet.qml").createObject().height)
                 {
-                    console.log("Added Track to container")
-                    object.y = container.childrenRect.height
-                    //object.t = ""
-                    //object.c ="black"
+                    fileDialog.open()
                 }
                 else
                 {
@@ -68,4 +61,28 @@ Window {
         height: root.height-addTrackSnippetButton.height
         width: 100
     }
+
+    FileDialog {
+        id: fileDialog
+        folder:shortcuts.music
+        onAccepted: {
+            //selectMultiple?
+            //console.log(this.fileUrls)
+                     // :
+            //t.text=this.fileUrl
+             console.log("You chose: " + fileDialog.fileUrl)
+
+            var component = Qt.createComponent("TrackSnippet.qml");
+
+            var object = component.createObject(container);
+
+                console.log("Added Track to container")
+                object.y = container.childrenRect.height
+                object.recording = fileDialog.fileUrl
+                //object.t = ""
+                //object.c ="black"
+        }
+    }
+
+
 }
